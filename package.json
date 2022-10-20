@@ -1,0 +1,20 @@
+{
+  "name": "text-to-speech",
+  "version": "1.0.0",
+  "main": "ttsapp.js",
+  "author": "vincemis610",
+  "license": "MIT",
+  "scripts": {
+    "dev": "nodemon ttsapp.js"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "get-audio-duration": "^3.1.1",
+    "request": "^2.88.2",
+    "winston": "^3.8.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.20"
+  }
+}
