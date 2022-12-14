@@ -19,8 +19,10 @@ async function onGET(req, res ) {
             //filestream.pipe(res);
             fs.readFile(file, (err, data) => {
 
-                res.type("application/ogg");
+                res.type("application/ogg");  //audio/ogg   application/octet-stream
                 res.setHeader("Content-Disposition","attachment;filename="+pfile);                
+                res.setHeader("Accept-Ranges","bytes");   
+                res.setHeader("Keep-Alive","timeout=5, max=100"); 
                 //res.attachment = pfile;
                 res.send(data);
             });

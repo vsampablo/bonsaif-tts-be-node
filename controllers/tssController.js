@@ -17,8 +17,18 @@ const TAG = 'ttsController';
  * } req 
  * @returns 'string o json'
  */
-const convertAudio = (req, res) => {
-    const { path, clave, voz, txt, codec, type, linkups ='' } = req.query;
+
+ const onGET=(req, res )=>{
+    convertAudio(req, res, req.query);
+  }
+
+  const onPOST=(req, res )=>{
+    convertAudio(req, res, req.body);
+  }
+
+const convertAudio = (req, res, json) => {
+    utl.log('json',json);
+    const { path, clave, voz, txt, codec, type, linkups ='' } = json;
     
     //2022/11/25 Se obtine uri para reproducir la grabacion
     let uri_origen = `${req.protocol}://${req.get('host')}`;
@@ -41,11 +51,11 @@ const convertAudio = (req, res) => {
         return res.status(400).json({ msg: msgVoz});
     }
 
-    const formato = (!codec) ? 'OGG' : 'json'; // Si el formato no se establece , define OGG por defecto
-    const ruta = (!path) ? '/mnt/blaster/' : path; // Si el ruta no se establece , define /mnt/blaster/ por defecto
+    const formato = codec ? codec : 'ogg'; // Si el formato no se establece , define OGG por defecto
+    const ruta = (!path) ? '/var/lib/asterisk/sounds/blaster/' : path; // Si el ruta no se establece , define /mnt/blaster/ por defecto
     let uri_path = ec.StringToHex(ruta);
 
-    utl.log('uri_play ['+uri_play+'] ruta['+uri_path+']');
+    utl.log('uri_play ['+uri_play+'] ruta['+uri_path+'] txt['+txt+']');
 
     tts.speech({
         key: process.env.KEY_TTS,
@@ -146,4 +156,9 @@ const linkup=(o)=>{
     
 }
 
-module.exports = convertAudio;
+module.exports = {
+    onGET,
+    onPOST,
+    convertAudio
+}
+;

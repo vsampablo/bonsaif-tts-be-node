@@ -9,7 +9,8 @@ const linkup = require('../controllers/linkup');
 const router = express.Router();
 
 router
-.get('/voice-rss', convertAudio)
+.get('/voice-rss', convertAudio.onGET)
+.post('/voice-rss', convertAudio.onPOST)
 .get('/play/*', play.onGET)
 .post('/linkup',linkup.onPOST)
 ;
