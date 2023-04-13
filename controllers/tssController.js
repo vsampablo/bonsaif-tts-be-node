@@ -69,9 +69,9 @@ const convertAudio = (req, res, json) => {
         b64: false,
         callback: async function (error, content) {
             if(error){
-                console.log(TAG+' ',error);
+                //console.log(TAG+' ',error);
                 return res.status(500).json({
-                    msg: 'Error al convertir el texto a audio, contacte al Administrator',
+                    msg: 'Error: al convertir el texto a audio, contacte al Administrator',
                     error: error
                 })
             }
@@ -106,13 +106,13 @@ const convertAudio = (req, res, json) => {
                 switch(e.code){
                     case "ENOENT":
                         return res.status(404).json({
-                            msg: `La ruta ${ ruta } no fue encontrada`,
+                            msg: `Error: La ruta ${ ruta } no fue encontrada`,
                             error: e
                         })
                         break;
                     default:  
                         return res.status(500).json({
-                            msg: 'Error desconocido, contacte al Administrator',
+                            msg: 'Error: desconocido, contacte al Administrator',
                             error: e
                         })   
                 }
